@@ -349,11 +349,12 @@ body {
 }
 
 .benefit-icon {
-    font-size: 1.1rem;
-    width: 24px;
+    font-size: 1.5rem;
+    width: 16px;
     text-align: center;
     flex-shrink: 0;
-    margin-top: 2px;
+    color: var(--accent-primary);
+    line-height: 1;
 }
 
 .benefit-text strong {
