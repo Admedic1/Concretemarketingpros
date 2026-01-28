@@ -107,12 +107,13 @@ body {
 
 @media (max-width: 480px) {
     .top-banner {
-        padding: 8px 16px;
+        padding: 10px 16px;
         gap: 8px;
     }
     
     .banner-text {
-        font-size: 0.75rem;
+        font-size: 0.9rem;
+        line-height: 1.4;
     }
 }
 
@@ -361,7 +362,17 @@ body {
 
 @media (max-width: 600px) {
     .benefit-item {
-        font-size: 0.875rem;
+        font-size: 0.9rem;
+        text-align: left;
+    }
+    
+    .benefits-list {
+        align-items: flex-start;
+        padding: 0 20px;
+    }
+    
+    .benefit-icon {
+        margin-top: 6px;
     }
 }
 
