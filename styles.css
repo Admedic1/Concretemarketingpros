@@ -204,30 +204,50 @@ body {
     align-items: center;
     justify-content: center;
     gap: 20px;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
+    margin-top: -8px;
 }
 
 .trust-divider {
     color: var(--text-muted);
-    font-size: 0.5rem;
+    font-size: 0.6rem;
 }
 
 .trust-badge-inline {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 0.8rem;
+    gap: 8px;
+    font-size: 1rem;
     color: var(--text-secondary);
 }
 
 .trust-badge-inline .tp-star {
     color: #00B67A;
-    font-size: 1rem;
+    font-size: 1.25rem;
 }
 
 .trust-badge-inline .tp-text {
     font-weight: 600;
     color: #191919;
+    font-size: 1rem;
+}
+
+.trust-badge-inline .g-icon {
+    font-size: 1rem;
+}
+
+.trust-badge-inline .g-text {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.trust-badge-inline .badge-stars {
+    font-size: 0.9rem;
+}
+
+.trust-badge-inline .badge-score {
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 .trust-badge-inline.google .g-icon {
