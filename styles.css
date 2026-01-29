@@ -1930,6 +1930,11 @@ body {
     flex-shrink: 0;
 }
 
+.proof-icon.green-check {
+    background: var(--success);
+    font-weight: 700;
+}
+
 .proof-content {
     text-align: left;
 }
