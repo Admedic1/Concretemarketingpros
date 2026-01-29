@@ -160,6 +160,9 @@ function selectInvestment(value, btn) {
     setTimeout(() => {
         console.log('Quiz complete:', formData);
         
+        // Send lead data to Zapier
+        sendToZapier(formData, 'quiz_complete');
+        
         // Track quiz completion with Meta Pixel
         if (typeof fbq !== 'undefined') {
             fbq('track', 'Schedule', {
@@ -171,6 +174,39 @@ function selectInvestment(value, btn) {
         
         nextStep(3);
     }, 300);
+}
+
+// ============================================
+// ZAPIER WEBHOOK
+// ============================================
+function sendToZapier(data, eventType) {
+    const webhookUrl = 'https://hooks.zapier.com/hooks/catch/23450484/ul66ub4/';
+    
+    const payload = {
+        event: eventType,
+        timestamp: new Date().toISOString(),
+        company_name: data.companyName || '',
+        location: data.location || '',
+        phone: data.phone || '',
+        revenue: data.revenue || '',
+        investment: data.investment || '',
+        page_url: window.location.href
+    };
+    
+    fetch(webhookUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+    })
+    .then(() => {
+        console.log('Lead sent to Zapier:', payload);
+    })
+    .catch((error) => {
+        console.error('Zapier webhook error:', error);
+    });
 }
 
 function handleQuizEnter(event, questionNum) {
@@ -283,6 +319,9 @@ window.addEventListener('message', function(e) {
             url.searchParams.set('booked', 'true');
             url.searchParams.set('event', 'scheduled');
             window.history.pushState({}, '', url);
+            
+            // Send booking confirmation to Zapier
+            sendToZapier(formData, 'call_booked');
             
             // Fire Meta Pixel event for completed booking
             if (typeof fbq !== 'undefined') {
