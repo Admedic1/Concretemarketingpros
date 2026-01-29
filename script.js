@@ -182,7 +182,32 @@ function selectInvestment(value, btn) {
 function sendToZapier(data, eventType) {
     const webhookUrl = 'https://hooks.zapier.com/hooks/catch/23450484/ul66ub4/';
     
-    const payload = {
+    // Build form data that Zapier can read
+    const formData = new FormData();
+    formData.append('event', eventType);
+    formData.append('timestamp', new Date().toISOString());
+    formData.append('company_name', data.companyName || '');
+    formData.append('location', data.location || '');
+    formData.append('phone', data.phone || '');
+    formData.append('revenue', data.revenue || '');
+    formData.append('investment', data.investment || '');
+    formData.append('page_url', window.location.href);
+    
+    // Send as form data - Zapier reads this natively
+    fetch(webhookUrl, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.text())
+    .then(result => {
+        console.log('Zapier response:', result);
+    })
+    .catch(error => {
+        console.log('Zapier fetch blocked by CORS, using fallback');
+    });
+    
+    // Backup: URL params via image beacon (always works)
+    const params = new URLSearchParams({
         event: eventType,
         timestamp: new Date().toISOString(),
         company_name: data.companyName || '',
@@ -191,20 +216,12 @@ function sendToZapier(data, eventType) {
         revenue: data.revenue || '',
         investment: data.investment || '',
         page_url: window.location.href
-    };
+    }).toString();
     
-    // Use image beacon method for reliable cross-origin data sending
     const img = new Image();
-    const params = new URLSearchParams(payload).toString();
     img.src = webhookUrl + '?' + params;
     
-    // Also try fetch as backup
-    fetch(webhookUrl, {
-        method: 'POST',
-        body: JSON.stringify(payload)
-    }).catch(() => {});
-    
-    console.log('Lead sent to Zapier:', payload);
+    console.log('Lead sent to Zapier:', data);
 }
 
 function handleQuizEnter(event, questionNum) {
