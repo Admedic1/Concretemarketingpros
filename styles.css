@@ -998,6 +998,97 @@ body {
     color: rgba(255, 255, 255, 0.5);
 }
 
+/* Revenue Math Section */
+.revenue-math {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.08) 0%, rgba(167, 139, 250, 0.08) 100%);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 16px;
+    padding: 24px 32px;
+    margin-top: 24px;
+    text-align: center;
+}
+
+.math-header {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--accent-primary);
+    margin-bottom: 20px;
+}
+
+.math-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.math-label {
+    color: var(--text-muted);
+}
+
+.math-value {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.math-value strong {
+    color: var(--success);
+    font-size: 1.1rem;
+}
+
+.math-result {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.result-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.result-value {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--success);
+}
+
+.math-note {
+    margin-top: 16px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.math-note strong {
+    color: var(--accent-primary);
+}
+
+@media (max-width: 600px) {
+    .revenue-math {
+        padding: 20px;
+    }
+    
+    .math-row {
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    .result-value {
+        font-size: 2rem;
+    }
+}
+
 @media (max-width: 480px) {
     .ads-proof-row {
         flex-direction: column;
