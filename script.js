@@ -207,14 +207,16 @@ function sendToZapier(data, eventType) {
     zapierSent[eventType] = true;
     
     const webhookUrl = 'https://hooks.zapier.com/hooks/catch/23450484/ul66ub4/';
-    const requestId = generateRequestId();
     const timestamp = new Date().toISOString();
+    
+    // Create unique dedupe key using phone + timestamp (Zapier can use this)
+    const dedupeKey = (data.phone || 'unknown') + '_' + Date.now();
     
     // Build form data that Zapier can read
     const formData = new FormData();
     formData.append('event', eventType);
     formData.append('timestamp', timestamp);
-    formData.append('request_id', requestId); // Unique ID for Zapier deduplication
+    formData.append('dedupe_key', dedupeKey); // Use phone + timestamp for deduplication
     formData.append('company_name', data.companyName || '');
     formData.append('location', data.location || '');
     formData.append('phone', data.phone || '');
@@ -237,7 +239,7 @@ function sendToZapier(data, eventType) {
         const params = new URLSearchParams({
             event: eventType,
             timestamp: timestamp,
-            request_id: requestId,
+            dedupe_key: dedupeKey,
             company_name: data.companyName || '',
             location: data.location || '',
             phone: data.phone || '',
@@ -250,7 +252,7 @@ function sendToZapier(data, eventType) {
         img.src = webhookUrl + '?' + params;
     });
     
-    console.log('Lead sent to Zapier:', eventType, 'Request ID:', requestId, data);
+    console.log('Lead sent to Zapier:', eventType, 'Dedupe Key:', dedupeKey, data);
 }
 
 function handleQuizEnter(event, questionNum) {
