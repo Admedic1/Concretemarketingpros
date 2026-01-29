@@ -270,3 +270,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// ============================================
+// CALENDLY BOOKING TRACKING
+// ============================================
+// Listen for Calendly events
+window.addEventListener('message', function(e) {
+    if (e.origin === 'https://calendly.com') {
+        if (e.data.event && e.data.event === 'calendly.event_scheduled') {
+            // Update URL with tracking parameter
+            const url = new URL(window.location);
+            url.searchParams.set('booked', 'true');
+            url.searchParams.set('event', 'scheduled');
+            window.history.pushState({}, '', url);
+            
+            // Fire Meta Pixel event for completed booking
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'CompleteRegistration', {
+                    content_name: 'Call Booked',
+                    value: formData.investment || '0',
+                    currency: 'USD',
+                    status: 'booked'
+                });
+            }
+            
+            console.log('Meeting scheduled! URL updated with ?booked=true');
+        }
+    }
+});
