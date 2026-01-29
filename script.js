@@ -193,20 +193,18 @@ function sendToZapier(data, eventType) {
         page_url: window.location.href
     };
     
+    // Use image beacon method for reliable cross-origin data sending
+    const img = new Image();
+    const params = new URLSearchParams(payload).toString();
+    img.src = webhookUrl + '?' + params;
+    
+    // Also try fetch as backup
     fetch(webhookUrl, {
         method: 'POST',
-        mode: 'no-cors',
-        headers: {
-            'Content-Type': 'application/json',
-        },
         body: JSON.stringify(payload)
-    })
-    .then(() => {
-        console.log('Lead sent to Zapier:', payload);
-    })
-    .catch((error) => {
-        console.error('Zapier webhook error:', error);
-    });
+    }).catch(() => {});
+    
+    console.log('Lead sent to Zapier:', payload);
 }
 
 function handleQuizEnter(event, questionNum) {
