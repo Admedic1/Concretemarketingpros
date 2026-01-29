@@ -363,16 +363,13 @@ body {
 @media (max-width: 600px) {
     .benefit-item {
         font-size: 0.9rem;
-        text-align: left;
+        text-align: center;
+        justify-content: center;
     }
     
     .benefits-list {
-        align-items: flex-start;
+        align-items: center;
         padding: 0 20px;
-    }
-    
-    .benefit-icon {
-        margin-top: 6px;
     }
 }
 
