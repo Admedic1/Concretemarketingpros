@@ -402,6 +402,19 @@ body {
     color: var(--accent-primary);
 }
 
+.hero-testimonial-text strong.green-highlight {
+    color: var(--success);
+    font-size: 1.1em;
+    text-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+}
+
+.hero-testimonial.featured {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(34, 197, 94, 0.03) 100%);
+    border: 2px solid var(--success);
+    box-shadow: 0 4px 20px rgba(34, 197, 94, 0.15);
+    transform: scale(1.02);
+}
+
 .hero-testimonial-author {
     font-size: 0.8125rem;
     color: var(--text-muted);
