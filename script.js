@@ -179,7 +179,21 @@ function selectInvestment(value, btn) {
 // ============================================
 // ZAPIER WEBHOOK
 // ============================================
+let zapierSent = {
+    quiz_complete: false,
+    call_booked: false
+};
+
 function sendToZapier(data, eventType) {
+    // Prevent duplicate sends
+    if (zapierSent[eventType]) {
+        console.log('Zapier webhook already sent for:', eventType);
+        return;
+    }
+    
+    // Mark as sent immediately
+    zapierSent[eventType] = true;
+    
     const webhookUrl = 'https://hooks.zapier.com/hooks/catch/23450484/ul66ub4/';
     
     // Build form data that Zapier can read
@@ -204,24 +218,23 @@ function sendToZapier(data, eventType) {
     })
     .catch(error => {
         console.log('Zapier fetch blocked by CORS, using fallback');
+        // Only use fallback if fetch fails
+        const params = new URLSearchParams({
+            event: eventType,
+            timestamp: new Date().toISOString(),
+            company_name: data.companyName || '',
+            location: data.location || '',
+            phone: data.phone || '',
+            revenue: data.revenue || '',
+            investment: data.investment || '',
+            page_url: window.location.href
+        }).toString();
+        
+        const img = new Image();
+        img.src = webhookUrl + '?' + params;
     });
     
-    // Backup: URL params via image beacon (always works)
-    const params = new URLSearchParams({
-        event: eventType,
-        timestamp: new Date().toISOString(),
-        company_name: data.companyName || '',
-        location: data.location || '',
-        phone: data.phone || '',
-        revenue: data.revenue || '',
-        investment: data.investment || '',
-        page_url: window.location.href
-    }).toString();
-    
-    const img = new Image();
-    img.src = webhookUrl + '?' + params;
-    
-    console.log('Lead sent to Zapier:', data);
+    console.log('Lead sent to Zapier:', eventType, data);
 }
 
 function handleQuizEnter(event, questionNum) {
