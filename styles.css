@@ -350,10 +350,15 @@ body {
 }
 
 .benefit-icon {
-    font-size: 0.5rem;
-    width: 8px;
+    font-size: 0.6rem;
+    width: 10px;
+    height: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
     color: var(--accent-primary);
+    line-height: 1;
 }
 
 .benefit-text strong {
