@@ -184,22 +184,37 @@ let zapierSent = {
     call_booked: false
 };
 
+// Generate unique request ID for deduplication
+function generateRequestId() {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+}
+
 function sendToZapier(data, eventType) {
-    // Prevent duplicate sends
-    if (zapierSent[eventType]) {
-        console.log('Zapier webhook already sent for:', eventType);
+    // Create unique key based on event type + phone number (most unique identifier)
+    const uniqueKey = eventType + '_' + (data.phone || 'unknown');
+    
+    // Prevent duplicate sends - check localStorage for this session
+    const sentKey = 'zapier_sent_' + uniqueKey;
+    if (sessionStorage.getItem(sentKey)) {
+        console.log('Zapier webhook already sent for:', eventType, 'Phone:', data.phone);
         return;
     }
     
-    // Mark as sent immediately
+    // Mark as sent immediately in sessionStorage
+    sessionStorage.setItem(sentKey, 'true');
+    
+    // Also mark in memory
     zapierSent[eventType] = true;
     
     const webhookUrl = 'https://hooks.zapier.com/hooks/catch/23450484/ul66ub4/';
+    const requestId = generateRequestId();
+    const timestamp = new Date().toISOString();
     
     // Build form data that Zapier can read
     const formData = new FormData();
     formData.append('event', eventType);
-    formData.append('timestamp', new Date().toISOString());
+    formData.append('timestamp', timestamp);
+    formData.append('request_id', requestId); // Unique ID for Zapier deduplication
     formData.append('company_name', data.companyName || '');
     formData.append('location', data.location || '');
     formData.append('phone', data.phone || '');
@@ -221,7 +236,8 @@ function sendToZapier(data, eventType) {
         // Only use fallback if fetch fails
         const params = new URLSearchParams({
             event: eventType,
-            timestamp: new Date().toISOString(),
+            timestamp: timestamp,
+            request_id: requestId,
             company_name: data.companyName || '',
             location: data.location || '',
             phone: data.phone || '',
@@ -234,7 +250,7 @@ function sendToZapier(data, eventType) {
         img.src = webhookUrl + '?' + params;
     });
     
-    console.log('Lead sent to Zapier:', eventType, data);
+    console.log('Lead sent to Zapier:', eventType, 'Request ID:', requestId, data);
 }
 
 function handleQuizEnter(event, questionNum) {
@@ -338,10 +354,20 @@ document.addEventListener('DOMContentLoaded', () => {
 // ============================================
 // CALENDLY BOOKING TRACKING
 // ============================================
+let calendlyProcessed = false;
+
 // Listen for Calendly events
 window.addEventListener('message', function(e) {
     if (e.origin === 'https://calendly.com') {
         if (e.data.event && e.data.event === 'calendly.event_scheduled') {
+            // Prevent duplicate processing
+            if (calendlyProcessed) {
+                console.log('Calendly event already processed, skipping duplicate');
+                return;
+            }
+            
+            calendlyProcessed = true;
+            
             // Update URL with tracking parameter
             const url = new URL(window.location);
             url.searchParams.set('booked', 'true');
