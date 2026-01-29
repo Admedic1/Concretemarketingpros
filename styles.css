@@ -1964,7 +1964,13 @@ body {
     }
 
     .headline {
-        font-size: 1.5rem;
+        font-size: 2rem;
+        line-height: 1.1;
+    }
+    
+    .cta-button.hero-cta {
+        font-size: 1.25rem;
+        padding: 16px 40px;
     }
 
     .trust-row {
