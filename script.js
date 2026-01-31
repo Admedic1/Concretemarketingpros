@@ -68,11 +68,6 @@ function goToQuiz() {
     formData.companyName = companyInput.value.trim();
     console.log('Company name:', formData.companyName);
     
-    // Track quiz start with Meta Pixel
-    if (typeof fbq !== 'undefined') {
-        fbq('track', 'Lead', { content_name: 'Quiz Started' });
-    }
-    
     // Update personalization in quiz
     updatePersonalization();
     
@@ -156,24 +151,45 @@ function selectInvestment(value, btn) {
     });
     btn.classList.add('selected');
     
-    // Complete quiz - go to calendar
-    setTimeout(() => {
-        console.log('Quiz complete:', formData);
-        
-        // Send lead data to Zapier
-        sendToZapier(formData, 'quiz_complete');
-        
-        // Track quiz completion with Meta Pixel
-        if (typeof fbq !== 'undefined') {
-            fbq('track', 'Schedule', {
-                content_name: 'Calendar Shown',
-                value: formData.investment,
-                currency: 'USD'
-            });
-        }
-        
-        nextStep(3);
-    }, 300);
+        // Complete quiz - go to calendar
+        setTimeout(() => {
+            console.log('Quiz complete:', formData);
+            
+            // Send lead data to Zapier
+            sendToZapier(formData, 'quiz_complete');
+            
+            // Track Lead event with all collected data - this is when we have a complete lead
+            if (typeof fbq !== 'undefined') {
+                const leadEventData = {
+                    content_name: 'Epoxy Business Lead',
+                    content_category: 'Quiz Completed',
+                    value: formData.investment || 0,
+                    currency: 'USD',
+                    // Custom parameters for lead data
+                    lead_company: formData.companyName || '',
+                    lead_location: formData.location || '',
+                    lead_phone: formData.phone || '',
+                    lead_revenue: formData.revenue || '',
+                    lead_investment: formData.investment || ''
+                };
+                
+                console.log('Firing Meta Pixel Lead event:', leadEventData);
+                fbq('track', 'Lead', leadEventData);
+                
+                // Also track Schedule event for calendar view
+                const scheduleEventData = {
+                    content_name: 'Calendar Shown',
+                    value: formData.investment,
+                    currency: 'USD'
+                };
+                console.log('Firing Meta Pixel Schedule event:', scheduleEventData);
+                fbq('track', 'Schedule', scheduleEventData);
+            } else {
+                console.error('Meta Pixel (fbq) is not defined. Check if Pixel is loaded correctly.');
+            }
+            
+            nextStep(3);
+        }, 300);
 }
 
 // ============================================
@@ -381,12 +397,16 @@ window.addEventListener('message', function(e) {
             
             // Fire Meta Pixel event for completed booking
             if (typeof fbq !== 'undefined') {
-                fbq('track', 'CompleteRegistration', {
+                const registrationEventData = {
                     content_name: 'Call Booked',
                     value: formData.investment || '0',
                     currency: 'USD',
                     status: 'booked'
-                });
+                };
+                console.log('Firing Meta Pixel CompleteRegistration event:', registrationEventData);
+                fbq('track', 'CompleteRegistration', registrationEventData);
+            } else {
+                console.error('Meta Pixel (fbq) is not defined. Check if Pixel is loaded correctly.');
             }
             
             console.log('Meeting scheduled! URL updated with ?booked=true');
