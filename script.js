@@ -11,6 +11,25 @@ let formData = {
 };
 
 // ============================================
+// META PIXEL VERIFICATION
+// ============================================
+function verifyMetaPixel() {
+    if (typeof fbq === 'undefined') {
+        console.error('Meta Pixel not loaded! Events will not be tracked.');
+        return false;
+    }
+    console.log('Meta Pixel verified and ready');
+    return true;
+}
+
+// Verify pixel on page load
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        verifyMetaPixel();
+    }, 1000);
+});
+
+// ============================================
 // STEP NAVIGATION
 // ============================================
 function nextStep(from) {
@@ -159,12 +178,27 @@ function selectInvestment(value, btn) {
             sendToZapier(formData, 'quiz_complete');
             
             // Track Lead event with all collected data - this is when we have a complete lead
-            if (typeof fbq !== 'undefined') {
+            if (verifyMetaPixel()) {
+                // Generate unique event ID for deduplication
+                const eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                
+                // Parse investment value to number for proper attribution
+                let investmentValue = 0;
+                if (formData.investment) {
+                    if (formData.investment === 'below-5k') investmentValue = 2500;
+                    else if (formData.investment === '5-10k') investmentValue = 7500;
+                    else if (formData.investment === '10-20k') investmentValue = 15000;
+                }
+                
                 const leadEventData = {
+                    eventID: eventId, // Critical for deduplication and attribution
                     content_name: 'Epoxy Business Lead',
                     content_category: 'Quiz Completed',
-                    value: formData.investment || 0,
+                    value: investmentValue,
                     currency: 'USD',
+                    // Standard parameters for better attribution
+                    source: 'website',
+                    method: 'quiz',
                     // Custom parameters for lead data
                     lead_company: formData.companyName || '',
                     lead_location: formData.location || '',
@@ -174,16 +208,19 @@ function selectInvestment(value, btn) {
                 };
                 
                 console.log('Firing Meta Pixel Lead event:', leadEventData);
-                fbq('track', 'Lead', leadEventData);
+                // Use trackSingle for better attribution to specific pixel
+                fbq('trackSingle', '911888651189317', 'Lead', leadEventData);
                 
                 // Also track Schedule event for calendar view
+                const scheduleEventId = 'schedule_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
                 const scheduleEventData = {
+                    eventID: scheduleEventId,
                     content_name: 'Calendar Shown',
-                    value: formData.investment,
+                    value: investmentValue,
                     currency: 'USD'
                 };
                 console.log('Firing Meta Pixel Schedule event:', scheduleEventData);
-                fbq('track', 'Schedule', scheduleEventData);
+                fbq('trackSingle', '911888651189317', 'Schedule', scheduleEventData);
             } else {
                 console.error('Meta Pixel (fbq) is not defined. Check if Pixel is loaded correctly.');
             }
@@ -396,15 +433,28 @@ window.addEventListener('message', function(e) {
             sendToZapier(formData, 'call_booked');
             
             // Fire Meta Pixel event for completed booking
-            if (typeof fbq !== 'undefined') {
+            if (verifyMetaPixel()) {
+                // Generate unique event ID
+                const registrationEventId = 'registration_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                
+                // Parse investment value to number
+                let investmentValue = 0;
+                if (formData.investment) {
+                    if (formData.investment === 'below-5k') investmentValue = 2500;
+                    else if (formData.investment === '5-10k') investmentValue = 7500;
+                    else if (formData.investment === '10-20k') investmentValue = 15000;
+                }
+                
                 const registrationEventData = {
+                    eventID: registrationEventId,
                     content_name: 'Call Booked',
-                    value: formData.investment || '0',
+                    value: investmentValue,
                     currency: 'USD',
-                    status: 'booked'
+                    status: 'booked',
+                    method: 'calendly'
                 };
                 console.log('Firing Meta Pixel CompleteRegistration event:', registrationEventData);
-                fbq('track', 'CompleteRegistration', registrationEventData);
+                fbq('trackSingle', '911888651189317', 'CompleteRegistration', registrationEventData);
             } else {
                 console.error('Meta Pixel (fbq) is not defined. Check if Pixel is loaded correctly.');
             }
