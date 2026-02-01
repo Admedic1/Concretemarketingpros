@@ -332,40 +332,16 @@
                     <div class="quiz-slide" data-question="2">
                         <div class="quiz-emoji">📱</div>
                         <h2 class="quiz-question">What's the best number to reach you?</h2>
-                        <p class="quiz-subtitle">We'll text you a verification code</p>
+                        <p class="quiz-subtitle">We'll text you a confirmation & reminder</p>
                         <input 
                             type="tel" 
                             id="phone" 
                             class="quiz-input"
                             placeholder="(555) 123-4567"
-                            onkeypress="handlePhoneEnter(event)"
+                            onkeypress="handleQuizEnter(event, 2)"
                         >
-                        <button class="quiz-next-btn" onclick="sendVerificationCode()" id="send-code-btn" disabled>
-                            Send Code →
-                        </button>
-                    </div>
-                    
-                    <!-- Q2b: Verify Code -->
-                    <div class="quiz-slide" data-question="2b" style="display: none;">
-                        <div class="quiz-emoji">🔐</div>
-                        <h2 class="quiz-question">Enter verification code</h2>
-                        <p class="quiz-subtitle">We sent a 6-digit code to <span id="phone-display" class="phone-highlight"></span></p>
-                        <input 
-                            type="text" 
-                            id="verification-code" 
-                            class="quiz-input verification-input"
-                            placeholder="000000"
-                            maxlength="6"
-                            inputmode="numeric"
-                            onkeypress="handleCodeEnter(event)"
-                            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                        >
-                        <button class="quiz-next-btn" onclick="verifyCode()" id="verify-btn" disabled>
-                            Verify & Continue →
-                        </button>
-                        <p id="verify-error" class="verify-error"></p>
-                        <button class="resend-btn" onclick="resendCode()">
-                            Didn't get the code? Resend
+                        <button class="quiz-next-btn" onclick="nextQuizQuestion(2)" id="q2-btn" disabled>
+                            Continue →
                         </button>
                     </div>
 

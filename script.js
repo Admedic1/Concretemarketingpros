@@ -354,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             e.target.value = value;
             
-            const btn = document.getElementById('send-code-btn');
+            const btn = document.getElementById('q2-btn');
             if (btn) btn.disabled = value.replace(/\D/g, '').length < 10;
         });
     }
