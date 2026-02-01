@@ -1569,8 +1569,8 @@ body {
 
 /* Urgency Banner */
 .urgency-banner {
-    background: white;
-    color: var(--accent-primary);
+    background: var(--accent-primary);
+    color: white;
     padding: 12px 20px;
     border-radius: 8px;
     margin-bottom: 16px;
@@ -1585,18 +1585,17 @@ body {
     text-transform: uppercase;
     animation: urgencyPulse 2s ease-in-out infinite;
     box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4);
-    border: 2px solid var(--accent-primary);
 }
 
 .urgency-text {
     font-weight: 700;
-    color: var(--accent-primary);
+    color: white;
 }
 
 .urgency-banner strong {
-    color: white;
+    color: #1a1a2e;
     font-weight: 900;
-    background: var(--accent-primary);
+    background: white;
     padding: 4px 10px;
     border-radius: 6px;
 }
