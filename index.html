@@ -333,41 +333,16 @@
                         <div class="quiz-emoji">📱</div>
                         <h2 class="quiz-question">What's the best number to reach you?</h2>
                         <p class="quiz-subtitle">We'll text you a confirmation & reminder</p>
-                        
-                        <!-- Phone Input Step -->
-                        <div id="phone-input-step">
-                            <input 
-                                type="tel" 
-                                id="phone" 
-                                class="quiz-input"
-                                placeholder="(555) 123-4567"
-                                onkeypress="handlePhoneEnter(event)"
-                            >
-                            <button class="quiz-next-btn" onclick="sendVerificationCode()" id="send-code-btn" disabled>
-                                Send Verification Code →
-                            </button>
-                        </div>
-                        
-                        <!-- Verification Code Step -->
-                        <div id="verify-code-step" style="display: none;">
-                            <p class="verify-sent-msg">✅ Code sent to <span id="phone-display"></span></p>
-                            <input 
-                                type="text" 
-                                id="verification-code" 
-                                class="quiz-input verification-input"
-                                placeholder="Enter 6-digit code"
-                                maxlength="6"
-                                onkeypress="handleCodeEnter(event)"
-                                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                            >
-                            <button class="quiz-next-btn" onclick="verifyCode()" id="verify-btn" disabled>
-                                Verify & Continue →
-                            </button>
-                            <button class="resend-btn" onclick="sendVerificationCode()" id="resend-btn">
-                                Resend Code
-                            </button>
-                            <p id="verify-error" class="verify-error" style="display: none;"></p>
-                        </div>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            class="quiz-input"
+                            placeholder="(555) 123-4567"
+                            onkeypress="handleQuizEnter(event, 2)"
+                        >
+                        <button class="quiz-next-btn" onclick="nextQuizQuestion(2)" id="q2-btn" disabled>
+                            Continue →
+                        </button>
                     </div>
 
                     <!-- Q3: Revenue -->
