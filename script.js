@@ -93,12 +93,10 @@ function goToQuiz() {
     // Reset quiz to first question
     showQuizSlide(1);
     
-    nextStep(2);
+    // Lock quiz immediately - no escape
+    document.body.classList.add('quiz-locked');
     
-    // Smooth scroll to quiz after transition
-    setTimeout(() => {
-        document.body.classList.add('quiz-locked');
-    }, 100);
+    nextStep(2);
 }
 
 // ============================================
