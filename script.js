@@ -95,12 +95,10 @@ function goToQuiz() {
     
     nextStep(2);
     
-    // Lock the quiz after a brief delay for smooth transition
-    requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-            document.body.classList.add('quiz-locked');
-        });
-    });
+    // Smooth scroll to quiz after transition
+    setTimeout(() => {
+        document.body.classList.add('quiz-locked');
+    }, 100);
 }
 
 // ============================================
@@ -354,7 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             e.target.value = value;
             
-            const btn = document.getElementById('q2-btn');
+            const btn = document.getElementById('send-code-btn');
             if (btn) btn.disabled = value.replace(/\D/g, '').length < 10;
         });
     }
