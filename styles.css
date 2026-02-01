@@ -1896,6 +1896,12 @@ body.quiz-locked #step-3 .quiz-proof-card {
     color: var(--error);
     font-size: 0.9rem;
     margin-top: 8px;
+    min-height: 20px;
+}
+
+.phone-highlight {
+    color: var(--accent-primary);
+    font-weight: 600;
 }
 
 /* Quiz Options (Multiple Choice) */
