@@ -95,8 +95,12 @@ function goToQuiz() {
     
     nextStep(2);
     
-    // Lock the quiz - make it fullscreen and impossible to leave
-    document.body.classList.add('quiz-locked');
+    // Lock the quiz after a brief delay for smooth transition
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            document.body.classList.add('quiz-locked');
+        });
+    });
 }
 
 // ============================================
