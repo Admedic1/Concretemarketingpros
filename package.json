@@ -1,0 +1,11 @@
+{
+  "name": "concrete-marketing-pros",
+  "version": "1.0.0",
+  "description": "Concrete Epoxy Marketing Landing Page",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "twilio": "^4.23.0"
+  }
+}
