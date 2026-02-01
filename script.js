@@ -94,6 +94,9 @@ function goToQuiz() {
     showQuizSlide(1);
     
     nextStep(2);
+    
+    // Lock the quiz - make it fullscreen and impossible to leave
+    document.body.classList.add('quiz-locked');
 }
 
 // ============================================
@@ -224,6 +227,9 @@ function selectInvestment(value, btn) {
             } else {
                 console.error('Meta Pixel (fbq) is not defined. Check if Pixel is loaded correctly.');
             }
+            
+            // Unlock the quiz when moving to calendar
+            document.body.classList.remove('quiz-locked');
             
             nextStep(3);
         }, 300);
