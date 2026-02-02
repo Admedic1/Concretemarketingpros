@@ -1999,6 +1999,43 @@ body.quiz-locked #step-3 .quiz-proof-card {
     border-radius: 100px;
 }
 
+/* Disqualified Screen */
+.disqualified-message {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+    text-align: left;
+}
+
+.disqualified-message p {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.disqualified-message ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.disqualified-message li {
+    padding: 8px 0;
+    padding-left: 24px;
+    position: relative;
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+}
+
+.disqualified-message li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent-primary);
+}
+
 @media (max-width: 480px) {
     .quiz-proof-image-large {
         max-width: 100%;

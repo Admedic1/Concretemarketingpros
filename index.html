@@ -361,14 +361,30 @@
 
                     <!-- Q4: Investment -->
                     <div class="quiz-slide" data-question="4">
-                        <div class="quiz-emoji">🚀</div>
-                        <h2 class="quiz-question">Our clients put in $5, get $25 back.<br>How much can you invest in growth?</h2>
-                        <p class="quiz-subtitle">Be honest — this helps us prepare your custom plan</p>
+                        <div class="quiz-emoji">💸</div>
+                        <h2 class="quiz-question">Are you ready to invest $1,500 into your epoxy business?</h2>
+                        <p class="quiz-subtitle">Be honest — this helps us see if we're a good fit</p>
                         <div class="quiz-options">
-                            <button class="quiz-option" onclick="selectInvestment('below-5k', this)">Below $5k/mo</button>
-                            <button class="quiz-option" onclick="selectInvestment('5-10k', this)">$5k - $10k/mo</button>
-                            <button class="quiz-option" onclick="selectInvestment('10-20k', this)">$10k - $20k/mo</button>
+                            <button class="quiz-option" onclick="selectInvestment('ready-to-grow', this)">Yes — I'm looking to grow and scale</button>
+                            <button class="quiz-option" onclick="selectInvestment('interested', this)">I have the money, and I'm interested in seeing what Coating Pros can do</button>
+                            <button class="quiz-option" onclick="selectInvestment('no-budget', this)">I'm just starting and don't have money</button>
                         </div>
+                    </div>
+                    
+                    <!-- Disqualified Screen -->
+                    <div class="quiz-slide" data-question="disqualified">
+                        <div class="quiz-emoji">😔</div>
+                        <h2 class="quiz-question">We're not the right fit — yet.</h2>
+                        <p class="quiz-subtitle">Coating Pros works best with contractors who are ready to invest in growth. Come back when you're ready to scale!</p>
+                        <div class="disqualified-message">
+                            <p>In the meantime, focus on:</p>
+                            <ul>
+                                <li>Building your skills and portfolio</li>
+                                <li>Getting your first few jobs through referrals</li>
+                                <li>Saving up for marketing investment</li>
+                            </ul>
+                        </div>
+                        <button class="quiz-next-btn" onclick="window.location.reload()">Start Over</button>
                     </div>
                 </div>
 

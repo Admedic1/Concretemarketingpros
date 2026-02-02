@@ -173,66 +173,63 @@ function selectInvestment(value, btn) {
     });
     btn.classList.add('selected');
     
-        // Complete quiz - go to calendar
-        setTimeout(() => {
-            console.log('Quiz complete:', formData);
+    setTimeout(() => {
+        // Check if disqualified (no budget)
+        if (value === 'no-budget') {
+            console.log('User disqualified - no budget');
+            showQuizSlide('disqualified');
+            return;
+        }
+        
+        // Qualified - complete quiz and go to calendar
+        console.log('Quiz complete:', formData);
+        
+        // Send lead data to Zapier
+        sendToZapier(formData, 'quiz_complete');
+        
+        // Track Lead event with all collected data
+        if (verifyMetaPixel()) {
+            const eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
             
-            // Send lead data to Zapier
-            sendToZapier(formData, 'quiz_complete');
+            // Set investment value based on new options
+            let investmentValue = 1500; // Base investment amount
+            if (value === 'ready-to-grow') investmentValue = 1500;
+            else if (value === 'interested') investmentValue = 1500;
             
-            // Track Lead event with all collected data - this is when we have a complete lead
-            if (verifyMetaPixel()) {
-                // Generate unique event ID for deduplication
-                const eventId = 'lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                
-                // Parse investment value to number for proper attribution
-                let investmentValue = 0;
-                if (formData.investment) {
-                    if (formData.investment === 'below-5k') investmentValue = 2500;
-                    else if (formData.investment === '5-10k') investmentValue = 7500;
-                    else if (formData.investment === '10-20k') investmentValue = 15000;
-                }
-                
-                const leadEventData = {
-                    eventID: eventId, // Critical for deduplication and attribution
-                    content_name: 'Epoxy Business Lead',
-                    content_category: 'Quiz Completed',
-                    value: investmentValue,
-                    currency: 'USD',
-                    // Standard parameters for better attribution
-                    source: 'website',
-                    method: 'quiz',
-                    // Custom parameters for lead data
-                    lead_company: formData.companyName || '',
-                    lead_location: formData.location || '',
-                    lead_phone: formData.phone || '',
-                    lead_revenue: formData.revenue || '',
-                    lead_investment: formData.investment || ''
-                };
-                
-                console.log('Firing Meta Pixel Lead event:', leadEventData);
-                // Use trackSingle for better attribution to specific pixel
-                fbq('trackSingle', '911888651189317', 'Lead', leadEventData);
-                
-                // Also track Schedule event for calendar view
-                const scheduleEventId = 'schedule_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                const scheduleEventData = {
-                    eventID: scheduleEventId,
-                    content_name: 'Calendar Shown',
-                    value: investmentValue,
-                    currency: 'USD'
-                };
-                console.log('Firing Meta Pixel Schedule event:', scheduleEventData);
-                fbq('trackSingle', '911888651189317', 'Schedule', scheduleEventData);
-            } else {
-                console.error('Meta Pixel (fbq) is not defined. Check if Pixel is loaded correctly.');
-            }
+            const leadEventData = {
+                eventID: eventId,
+                content_name: 'Epoxy Business Lead',
+                content_category: 'Quiz Completed',
+                value: investmentValue,
+                currency: 'USD',
+                source: 'website',
+                method: 'quiz',
+                lead_company: formData.companyName || '',
+                lead_location: formData.location || '',
+                lead_phone: formData.phone || '',
+                lead_revenue: formData.revenue || '',
+                lead_investment: formData.investment || ''
+            };
             
-            // Unlock the quiz when moving to calendar
-            document.body.classList.remove('quiz-locked');
+            console.log('Firing Meta Pixel Lead event:', leadEventData);
+            fbq('trackSingle', '911888651189317', 'Lead', leadEventData);
             
-            nextStep(3);
-        }, 300);
+            const scheduleEventId = 'schedule_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            const scheduleEventData = {
+                eventID: scheduleEventId,
+                content_name: 'Calendar Shown',
+                value: investmentValue,
+                currency: 'USD'
+            };
+            console.log('Firing Meta Pixel Schedule event:', scheduleEventData);
+            fbq('trackSingle', '911888651189317', 'Schedule', scheduleEventData);
+        }
+        
+        // Unlock the quiz when moving to calendar
+        document.body.classList.remove('quiz-locked');
+        
+        nextStep(3);
+    }, 300);
 }
 
 // ============================================
@@ -445,11 +442,9 @@ window.addEventListener('message', function(e) {
                 const registrationEventId = 'registration_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
                 
                 // Parse investment value to number
-                let investmentValue = 0;
-                if (formData.investment) {
-                    if (formData.investment === 'below-5k') investmentValue = 2500;
-                    else if (formData.investment === '5-10k') investmentValue = 7500;
-                    else if (formData.investment === '10-20k') investmentValue = 15000;
+                let investmentValue = 1500;
+                if (formData.investment === 'ready-to-grow' || formData.investment === 'interested') {
+                    investmentValue = 1500;
                 }
                 
                 const registrationEventData = {
