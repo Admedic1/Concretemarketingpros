@@ -411,6 +411,76 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ============================================
+// VIDEO PLAYER CONTROLS
+// ============================================
+document.addEventListener('DOMContentLoaded', () => {
+    const video = document.getElementById('testimonial-video');
+    const videoWrapper = video?.closest('.video-wrapper');
+    const playBtn = document.getElementById('video-play-btn');
+    const muteBtn = document.getElementById('video-mute-btn');
+    const progressBar = document.getElementById('video-progress-bar');
+    const progressContainer = progressBar?.closest('.video-progress-container');
+    
+    if (!video || !videoWrapper) return;
+    
+    // Video is playing by default (autoplay)
+    videoWrapper.classList.add('playing');
+    
+    // Play/Pause toggle
+    if (playBtn) {
+        playBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                videoWrapper.classList.add('playing');
+            } else {
+                video.pause();
+                videoWrapper.classList.remove('playing');
+            }
+        });
+    }
+    
+    // Mute/Unmute toggle
+    if (muteBtn) {
+        muteBtn.addEventListener('click', () => {
+            video.muted = !video.muted;
+            if (video.muted) {
+                videoWrapper.classList.remove('unmuted');
+            } else {
+                videoWrapper.classList.add('unmuted');
+            }
+        });
+    }
+    
+    // Update progress bar
+    video.addEventListener('timeupdate', () => {
+        if (progressBar && video.duration) {
+            const progress = (video.currentTime / video.duration) * 100;
+            progressBar.style.width = progress + '%';
+        }
+    });
+    
+    // Click on progress bar to seek
+    if (progressContainer) {
+        progressContainer.addEventListener('click', (e) => {
+            const rect = progressContainer.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const width = rect.width;
+            const seekTime = (clickX / width) * video.duration;
+            video.currentTime = seekTime;
+        });
+    }
+    
+    // Sync play state when video plays/pauses
+    video.addEventListener('play', () => {
+        videoWrapper.classList.add('playing');
+    });
+    
+    video.addEventListener('pause', () => {
+        videoWrapper.classList.remove('playing');
+    });
+});
+
+// ============================================
 // CALENDLY BOOKING TRACKING
 // ============================================
 let calendlyProcessed = false;
