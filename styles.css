@@ -578,7 +578,7 @@ body {
 
 .video-wrapper {
     position: relative;
-    max-width: 600px;
+    max-width: 450px;
     margin: 0 auto;
     border-radius: 16px;
     overflow: hidden;
@@ -590,7 +590,7 @@ body {
     width: 100%;
     height: auto;
     display: block;
-    aspect-ratio: 16/9;
+    aspect-ratio: 1/1;
     object-fit: cover;
 }
 
