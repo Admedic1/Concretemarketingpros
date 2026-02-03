@@ -367,6 +367,43 @@ body {
     color: var(--accent-primary);
 }
 
+/* Hero Bullets */
+.hero-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    max-width: 320px;
+}
+
+.hero-bullets li {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hero-bullets li::first-letter {
+    color: var(--success);
+}
+
+@media (max-width: 640px) {
+    .hero-bullets {
+        align-items: flex-start;
+        padding: 0 16px;
+        margin-bottom: 20px;
+    }
+    
+    .hero-bullets li {
+        font-size: 0.9rem;
+    }
+}
+
 /* Benefits List */
 .benefits-list {
     display: flex;
