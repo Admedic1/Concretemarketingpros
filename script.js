@@ -418,6 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const videoWrapper = video?.closest('.video-wrapper');
     const playBtn = document.getElementById('video-play-btn');
     const muteBtn = document.getElementById('video-mute-btn');
+    const unmuteOverlay = document.getElementById('unmute-overlay');
     const progressBar = document.getElementById('video-progress-bar');
     const progressContainer = progressBar?.closest('.video-progress-container');
     
@@ -425,6 +426,15 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Video is playing by default (autoplay)
     videoWrapper.classList.add('playing');
+    
+    // Unmute overlay click
+    if (unmuteOverlay) {
+        unmuteOverlay.addEventListener('click', () => {
+            video.muted = false;
+            videoWrapper.classList.add('unmuted');
+            unmuteOverlay.classList.add('hidden');
+        });
+    }
     
     // Play/Pause toggle
     if (playBtn) {
@@ -445,8 +455,10 @@ document.addEventListener('DOMContentLoaded', () => {
             video.muted = !video.muted;
             if (video.muted) {
                 videoWrapper.classList.remove('unmuted');
+                if (unmuteOverlay) unmuteOverlay.classList.remove('hidden');
             } else {
                 videoWrapper.classList.add('unmuted');
+                if (unmuteOverlay) unmuteOverlay.classList.add('hidden');
             }
         });
     }

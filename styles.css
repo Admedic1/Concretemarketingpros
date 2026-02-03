@@ -612,6 +612,46 @@ body {
     opacity: 1;
 }
 
+/* Unmute Overlay Button */
+.unmute-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--accent-primary);
+    color: white;
+    border: none;
+    padding: 16px 28px;
+    border-radius: 100px;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
+    z-index: 10;
+    animation: pulseUnmute 2s ease-in-out infinite;
+}
+
+.unmute-overlay:hover {
+    background: var(--accent-hover);
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+.unmute-overlay.hidden {
+    display: none;
+}
+
+@keyframes pulseUnmute {
+    0%, 100% {
+        box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
+    }
+    50% {
+        box-shadow: 0 12px 40px rgba(139, 92, 246, 0.7);
+    }
+}
+
 .video-play-btn {
     width: 44px;
     height: 44px;
