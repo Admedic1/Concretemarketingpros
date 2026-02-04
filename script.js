@@ -424,8 +424,24 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (!video || !videoWrapper) return;
     
-    // Video is playing by default (autoplay)
-    videoWrapper.classList.add('playing');
+    // Use Intersection Observer to play video only when visible
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Video is in view - play it
+                video.play();
+                videoWrapper.classList.add('playing');
+            } else {
+                // Video is out of view - pause it
+                video.pause();
+                videoWrapper.classList.remove('playing');
+            }
+        });
+    }, {
+        threshold: 0.5 // Play when 50% visible
+    });
+    
+    observer.observe(video);
     
     // Unmute overlay click
     if (unmuteOverlay) {
