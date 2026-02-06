@@ -66,11 +66,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
     background: #7C3AED;
     padding: 12px 20px;
     text-align: center;
-    flex-wrap: wrap;
+    position: relative;
 }
 
 .banner-badge {
@@ -87,6 +86,9 @@ body {
     color: white;
     font-size: 0.875rem;
     font-weight: 400;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .banner-text strong {
@@ -107,13 +109,14 @@ body {
 
 /* Banner Google Rating */
 .banner-google-rating {
+    position: absolute;
+    right: 20px;
     display: flex;
     align-items: center;
     gap: 6px;
     background: rgba(255, 255, 255, 0.15);
     padding: 6px 12px;
     border-radius: 100px;
-    margin-left: auto;
 }
 
 .banner-google-rating .google-icon {
@@ -164,6 +167,7 @@ body {
     }
     
     .banner-google-rating {
+        right: 12px;
         padding: 4px 8px;
         gap: 4px;
     }
