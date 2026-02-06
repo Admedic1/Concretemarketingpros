@@ -157,18 +157,21 @@ body {
     }
     
     .top-banner {
-        padding: 6px 12px;
+        flex-direction: column;
+        padding: 8px 12px;
         gap: 6px;
     }
     
     .banner-text {
-        font-size: 0.75rem;
+        position: static;
+        transform: none;
+        font-size: 0.8rem;
         line-height: 1.2;
     }
     
     .banner-google-rating {
-        right: 12px;
-        padding: 4px 8px;
+        position: static;
+        padding: 4px 10px;
         gap: 4px;
     }
     
@@ -177,11 +180,11 @@ body {
     }
     
     .banner-google-rating .google-stars {
-        font-size: 0.625rem;
+        font-size: 0.7rem;
     }
     
     .banner-google-rating .google-score {
-        font-size: 0.625rem;
+        font-size: 0.7rem;
     }
 }
 
