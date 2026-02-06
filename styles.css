@@ -408,7 +408,7 @@ body {
 }
 
 .headline {
-    font-family: var(--font-heading);
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 800;
     line-height: 1.15;
