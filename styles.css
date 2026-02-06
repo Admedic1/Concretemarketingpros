@@ -18,7 +18,7 @@
 
     /* Typography */
     --font-display: 'Bebas Neue', cursive;
-    --font-heading: 'Bebas Neue', cursive;
+    --font-heading: 'Montserrat', sans-serif;
     --font-body: 'Plus Jakarta Sans', sans-serif;
 
     /* Spacing */
@@ -105,6 +105,36 @@ body {
     opacity: 0.8;
 }
 
+/* Banner Google Rating */
+.banner-google-rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 6px 12px;
+    border-radius: 100px;
+    margin-left: auto;
+}
+
+.banner-google-rating .google-icon {
+    font-family: 'Product Sans', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: white;
+}
+
+.banner-google-rating .google-stars {
+    color: #FBBF24;
+    font-size: 0.75rem;
+    letter-spacing: -1px;
+}
+
+.banner-google-rating .google-score {
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
 /* Desktop/Mobile visibility */
 .desktop-only {
     display: inline;
@@ -131,6 +161,23 @@ body {
     .banner-text {
         font-size: 0.75rem;
         line-height: 1.2;
+    }
+    
+    .banner-google-rating {
+        padding: 4px 8px;
+        gap: 4px;
+    }
+    
+    .banner-google-rating .google-icon {
+        font-size: 0.875rem;
+    }
+    
+    .banner-google-rating .google-stars {
+        font-size: 0.625rem;
+    }
+    
+    .banner-google-rating .google-score {
+        font-size: 0.625rem;
     }
 }
 
@@ -354,13 +401,14 @@ body {
 }
 
 .headline {
-    font-family: var(--font-display);
-    font-size: clamp(2.25rem, 6vw, 3.5rem);
-    font-weight: 700;
-    line-height: 1.05;
-    letter-spacing: 0.02em;
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
     margin-bottom: 20px;
     color: var(--text-primary);
+    text-transform: uppercase;
 }
 
 .headline .highlight {
@@ -792,6 +840,72 @@ body {
     .video-mute-btn {
         width: 34px;
         height: 34px;
+    }
+}
+
+/* Doski Success Section */
+.doski-section {
+    margin-top: 32px;
+    margin-bottom: 24px;
+}
+
+.doski-card {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(34, 197, 94, 0.03) 100%);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.doski-image {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    object-position: center 30%;
+}
+
+.doski-content {
+    padding: 20px;
+    text-align: center;
+}
+
+.doski-title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+.doski-text {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.doski-text strong {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.doski-result {
+    display: inline-block;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--success);
+    background: rgba(34, 197, 94, 0.15);
+    padding: 8px 16px;
+    border-radius: 100px;
+}
+
+@media (max-width: 480px) {
+    .doski-title {
+        font-size: 1.1rem;
+    }
+    
+    .doski-text {
+        font-size: 0.9375rem;
     }
 }
 
