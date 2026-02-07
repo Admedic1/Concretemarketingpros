@@ -2549,6 +2549,36 @@ body.quiz-locked #step-3 .quiz-proof-card {
     margin-bottom: 24px;
 }
 
+.calendar-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: rgba(251, 191, 36, 0.1);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.calendar-warning .warning-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.calendar-warning .warning-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.calendar-warning .warning-text strong {
+    color: var(--text-primary);
+}
+
 .calendly-embed {
     min-height: 650px;
     border-radius: 12px;
