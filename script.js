@@ -9,6 +9,8 @@ let popupShown = false;
 // POPUP & EXIT INTENT
 // ============================================
 
+let exitIntentEnabled = false;
+
 function showPopup() {
     if (popupShown || quizStarted) return;
     popupShown = true;
@@ -19,16 +21,21 @@ function closePopup() {
     document.getElementById('popup-overlay').classList.remove('active');
 }
 
-// Exit intent detection (mouse leaves viewport at top)
-document.addEventListener('mouseout', function(e) {
-    if (e.clientY < 10 && !popupShown && !quizStarted && currentStep === 1) {
+// Enable exit intent after 5 seconds (prevents accidental triggers on page load)
+setTimeout(function() {
+    exitIntentEnabled = true;
+}, 5000);
+
+// Exit intent detection (mouse leaves viewport at top - only when leaving document)
+document.addEventListener('mouseleave', function(e) {
+    if (exitIntentEnabled && e.clientY < 0 && !popupShown && !quizStarted && currentStep === 1) {
         showPopup();
     }
 });
 
-// Inactivity popup after 20 seconds
+// Inactivity popup after 20 seconds (only if quiz not started)
 setTimeout(function() {
-    if (!quizStarted && currentStep === 1) {
+    if (!quizStarted && currentStep === 1 && !popupShown) {
         showPopup();
     }
 }, 20000);
