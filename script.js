@@ -2,6 +2,52 @@
 // STATE MANAGEMENT
 // ============================================
 let currentStep = 1;
+let quizStarted = false;
+let popupShown = false;
+
+// ============================================
+// POPUP & EXIT INTENT
+// ============================================
+
+function showPopup() {
+    if (popupShown || quizStarted) return;
+    popupShown = true;
+    document.getElementById('popup-overlay').classList.add('active');
+}
+
+function closePopup() {
+    document.getElementById('popup-overlay').classList.remove('active');
+}
+
+// Exit intent detection (mouse leaves viewport at top)
+document.addEventListener('mouseout', function(e) {
+    if (e.clientY < 10 && !popupShown && !quizStarted && currentStep === 1) {
+        showPopup();
+    }
+});
+
+// Inactivity popup after 20 seconds
+setTimeout(function() {
+    if (!quizStarted && currentStep === 1) {
+        showPopup();
+    }
+}, 20000);
+
+// Prevent scrolling past calendar (step 4)
+function limitScroll() {
+    if (currentStep === 4) {
+        const calendarSection = document.getElementById('step-4');
+        if (calendarSection) {
+            const rect = calendarSection.getBoundingClientRect();
+            const bottomOfCalendar = rect.bottom + window.scrollY;
+            if (window.scrollY + window.innerHeight > bottomOfCalendar + 100) {
+                window.scrollTo({ top: bottomOfCalendar - window.innerHeight + 100 });
+            }
+        }
+    }
+}
+
+window.addEventListener('scroll', limitScroll);
 let formData = {
     companyName: '',
     location: '',
@@ -39,6 +85,9 @@ function exitForm() {
 }
 
 function nextStep(from) {
+    // Mark quiz as started
+    quizStarted = true;
+    
     // Hide current step
     document.getElementById(`step-${from}`).classList.remove('active');
     

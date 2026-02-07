@@ -530,6 +530,16 @@
         </div>
     </div>
 
+    <!-- Exit Intent / Inactivity Popup -->
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup-content">
+            <button class="popup-close" onclick="closePopup()">&times;</button>
+            <h3 class="popup-title">Wait! Don't Leave Yet</h3>
+            <p class="popup-text">You're one step away from scaling your epoxy business. Answer a quick question to see if you qualify.</p>
+            <button class="popup-cta" onclick="closePopup(); nextStep(1);">Yes, I Want To Scale</button>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
