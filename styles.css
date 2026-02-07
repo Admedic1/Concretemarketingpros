@@ -444,17 +444,19 @@ body {
 
 .owner-buttons {
     display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    max-width: 320px;
+    margin: 0 auto;
 }
 
 .owner-btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    padding: 16px 48px;
+    width: 100%;
+    padding: 16px 32px;
     font-size: 1.1rem;
     font-weight: 700;
     border-radius: 12px;
@@ -485,34 +487,6 @@ body {
 .owner-btn.no:hover {
     border-color: var(--text-secondary);
     background: var(--bg-light);
-}
-
-.owner-btn .btn-icon {
-    font-size: 1.2rem;
-}
-
-.not-owner-message {
-    margin-top: 20px;
-    padding: 16px 24px;
-    background: rgba(239, 68, 68, 0.1);
-    border-radius: 12px;
-    color: var(--error);
-    font-size: 0.95rem;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-@media (max-width: 480px) {
-    .owner-buttons {
-        flex-direction: column;
-        gap: 12px;
-    }
-    
-    .owner-btn {
-        width: 100%;
-        padding: 14px 32px;
-    }
 }
 
 /* Hero Bullets */

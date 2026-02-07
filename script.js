@@ -33,11 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // STEP NAVIGATION
 // ============================================
 
-function showNotOwnerMessage() {
-    const message = document.getElementById('not-owner-message');
-    if (message) {
-        message.style.display = 'block';
-    }
+function exitForm() {
+    // Redirect to Google or close the window
+    window.location.href = 'https://www.google.com';
 }
 
 function nextStep(from) {
