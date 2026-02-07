@@ -32,6 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
 // ============================================
 // STEP NAVIGATION
 // ============================================
+
+function showNotOwnerMessage() {
+    const message = document.getElementById('not-owner-message');
+    if (message) {
+        message.style.display = 'block';
+    }
+}
+
 function nextStep(from) {
     // Hide current step
     document.getElementById(`step-${from}`).classList.remove('active');

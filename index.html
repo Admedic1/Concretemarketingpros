@@ -88,10 +88,23 @@
                 
                 <p class="hero-subheadline">Add $30k In Sales This Month</p>
 
-                <button class="cta-button primary hero-cta" onclick="nextStep(1)">
-                    <strong>SCALE MY COATINGS BUSINESS</strong>
-                    <span class="arrow">→</span>
-                </button>
+                <!-- Owner Question -->
+                <div class="owner-question">
+                    <p class="owner-question-text">Do you own your epoxy business?</p>
+                    <div class="owner-buttons">
+                        <button class="owner-btn yes" onclick="nextStep(1)">
+                            <span class="btn-icon">✓</span>
+                            Yes
+                        </button>
+                        <button class="owner-btn no" onclick="showNotOwnerMessage()">
+                            <span class="btn-icon">✗</span>
+                            No
+                        </button>
+                    </div>
+                    <p class="not-owner-message" id="not-owner-message" style="display: none;">
+                        This program is designed for epoxy business owners. If you're looking to start one, check back soon!
+                    </p>
+                </div>
 
                 <!-- Video Section -->
                 <div class="video-testimonial-section">
