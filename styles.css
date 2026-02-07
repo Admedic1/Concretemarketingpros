@@ -430,26 +430,28 @@ body {
     font-weight: 500;
 }
 
-/* Owner Question */
-.owner-question {
+/* Owner Question Card */
+.owner-question-card {
+    background: linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%);
+    border-radius: 20px;
+    padding: 32px 28px;
     text-align: center;
-    margin-bottom: 32px;
+    max-width: 400px;
+    margin: 0 auto 32px;
+    box-shadow: 0 12px 40px rgba(124, 58, 237, 0.3);
 }
 
 .owner-question-text {
-    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 20px;
+    font-size: clamp(1.25rem, 3vw, 1.5rem);
+    font-weight: 700;
+    color: white;
+    margin-bottom: 24px;
 }
 
 .owner-buttons {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    align-items: center;
-    max-width: 320px;
-    margin: 0 auto;
 }
 
 .owner-btn {
@@ -463,31 +465,28 @@ body {
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.2s ease;
-    border: 2px solid transparent;
+    border: none;
 }
 
 .owner-btn.yes {
-    background: var(--accent-primary);
-    color: white;
-    border-color: var(--accent-primary);
+    background: white;
+    color: #7C3AED;
 }
 
 .owner-btn.yes:hover {
-    background: var(--accent-hover);
-    border-color: var(--accent-hover);
+    background: #f0fdf4;
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3);
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
 }
 
 .owner-btn.no {
-    background: white;
-    color: var(--text-secondary);
-    border-color: var(--border-medium);
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .owner-btn.no:hover {
-    border-color: var(--text-secondary);
-    background: var(--bg-light);
+    background: rgba(255, 255, 255, 0.25);
 }
 
 /* Hero Bullets */
