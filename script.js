@@ -486,12 +486,30 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (!video || !videoWrapper) return;
     
-    // Use Intersection Observer to play video only when visible
+    let videoLoaded = false;
+    
+    // Lazy load video source when visible
+    function loadVideo() {
+        if (videoLoaded) return;
+        const src = video.dataset.src;
+        if (src) {
+            const source = document.createElement('source');
+            source.src = src;
+            source.type = 'video/mp4';
+            video.appendChild(source);
+            video.load();
+            videoLoaded = true;
+        }
+    }
+    
+    // Use Intersection Observer to lazy load and play video only when visible
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                // Lazy load video first time
+                loadVideo();
                 // Video is in view - play it
-                video.play();
+                video.play().catch(() => {}); // Catch autoplay errors
                 videoWrapper.classList.add('playing');
             } else {
                 // Video is out of view - pause it
@@ -500,7 +518,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }, {
-        threshold: 0.5 // Play when 50% visible
+        threshold: 0.3 // Load when 30% visible
     });
     
     observer.observe(video);

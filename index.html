@@ -35,8 +35,12 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Bricolage+Grotesque:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="styles.css" as="style">
+    <link rel="dns-prefetch" href="https://assets.calendly.com">
 </head>
 <body>
     <!-- Top Banner -->
@@ -109,10 +113,11 @@
                             muted 
                             loop
                             playsinline
-                            poster=""
+                            preload="none"
+                            poster="doski-team.jpg"
+                            data-src="testimonial.mp4"
                         >
-                            <source src="testimonial.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
+                            <!-- Video source loaded lazily via JS -->
                         </video>
                         <div class="unmute-overlay" id="unmute-overlay">
                             <div class="unmute-box">
@@ -539,6 +544,6 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
